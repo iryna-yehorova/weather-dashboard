@@ -2,7 +2,9 @@
 
 ## Project setup
 ```
-npm install
+1. Sign in in https://www.weatherapi.com/ to get api key
+2. Add .env.local with VUE_APP_URl={url} and VUE_APP_KEY={key}
+3. Start npm install
 ```
 
 ### Compiles and hot-reloads for development
