@@ -1,38 +1,44 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
+  <div>
+    <Navbar @onSearchChange='getSearch'/> 
+   
+  </div>
 </template>
 
 <script>
+import * as dataApi from "./backend/dataApi"
+import { reactive, toRefs } from 'vue'
+import Navbar from './components/Navbar.vue'
+
 export default {
   name: 'App',
-  components: {},
+  components: {
+    Navbar
+  },
   setup() {
-    const axios = require('axios').default;
+    const state = reactive({
+      location: '',
+      current: {},
+      forecast: {}
+    })
 
-    axios.get(process.env.VUE_APP_URL,   {
-      params: {
-        key: process.env.VUE_APP_KEY,
-        q: 'Kiev',
-        days: 3,
-        aqi: 'no',
-        alerts: 'no'
+    const getSearch = (location) => {
+      state.location = location
+      getData(location)
+    }
+
+    async function getData(location) {
+      if(location.length <= 3) {
+        return 
       }
-    }     
-    )
-    .then((data) => console.log(data.data))
+
+      const res = await dataApi.getDataForecast(location)
+      state.current = res.current
+      state.forecast = res.forecast.forecastday
+    }
+
+    return { ...toRefs(state), getSearch}
   },
 }
 </script>
 
-
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
