@@ -31,7 +31,7 @@ export default {
         function getInfo() {
             state.list.forEach((item) => {
                 let current = useCurrentApi(item.title)
-                let {temperature, humidity, condition} = current;
+                let { temperature, humidity, condition } = current;
                 item.temperature = temperature;
                 item.humidity = humidity;
                 item.condition = condition

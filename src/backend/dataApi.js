@@ -7,11 +7,11 @@ async function getDataForecast(city) {
     try{
        const res = await axios.get('forecast.json', {
             params: {
-            key: key,
-            q: city,
-            days: 3,
-            aqi: 'no',
-            alerts: 'no'
+                key: key,
+                q: city,
+                days: 3,
+                aqi: 'no',
+                alerts: 'no'
             }
         }     
       )
@@ -24,11 +24,11 @@ async function getDataForecast(city) {
 async function getCurrentWeather(city) {
     try{
         const res = await axios.get('current.json', {
-             params: {
-             key: key,
-             q: city,
-             aqi: 'no',
-             }
+            params: {
+                key: key,
+                q: city,
+                aqi: 'no',
+                }
          }     
        )
        return res.data.current

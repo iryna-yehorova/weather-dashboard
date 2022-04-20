@@ -14,10 +14,9 @@
 
 <script>
 export default {
-    setup (props, context) {
-
+    setup (_, { emit }) {
         const customChange = (event) => {
-            context.emit("onSearchChange", event.target.value)
+          emit("onSearchChange", event.target.value)
         }
 
         return { customChange }

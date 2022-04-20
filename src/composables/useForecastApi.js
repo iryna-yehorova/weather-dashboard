@@ -9,7 +9,7 @@ export const useForecastApi = () => {
     })
 
     watchEffect ( async() => {
-        if(state.search.length <= 3) {
+        if (state.search.length <= 3) {
             return 
         }
         

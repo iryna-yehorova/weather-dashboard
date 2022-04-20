@@ -1,12 +1,14 @@
 <template>
   <div>
     <Navbar @onSearchChange='getSearch'/> 
-    <div class="row">
-      <div class="col-5">
-        <CityList />
-      </div>
-      <div class="col">
-        <Dashboard />
+    <div class="container">
+      <div class="row" >
+        <div class="col-3 bg-warning bg-opacity-25 pb-3">
+          <CityList />
+        </div>
+        <div class="col ps-0">
+          <Dashboard :forecast="forecast"/>
+        </div>
       </div>
     </div>
    
@@ -31,6 +33,8 @@ export default {
     const state = useForecastApi()
 
     const getSearch = (location) => state.search = location
+
+    getSearch('Kiev')
 
     return { ...toRefs(state), getSearch}
   },
