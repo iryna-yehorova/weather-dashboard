@@ -7,7 +7,7 @@
           <CityList />
         </div>
         <div class="col ps-0">
-          <Dashboard :forecast="forecast"/>
+          <Dashboard :forecast="forecast" :city="search"/>
         </div>
       </div>
     </div>
@@ -34,7 +34,9 @@ export default {
 
     const getSearch = (location) => state.search = location
 
-    getSearch('Kiev')
+    if (!state.search) {
+      getSearch('Kiev')
+    }
 
     return { ...toRefs(state), getSearch}
   },

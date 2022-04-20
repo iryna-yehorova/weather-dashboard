@@ -1,4 +1,4 @@
-import { reactive, watchEffect } from "vue"
+import { reactive, watchEffect, toRefs } from "vue"
 import { getDataForecast } from '../backend/dataApi'
 
 const SEARCH_LENGTH_LIMIT = 3
@@ -23,5 +23,5 @@ export const useForecastApi = () => {
         }
     })
 
-    return state
+    return {...toRefs(state)}
 }
