@@ -1,16 +1,19 @@
 const axios = require('axios').default;
 
-axios.defaults.baseURL = process.env.VUE_APP_URL
-const key = process.env.VUE_APP_KEY
+const http = axios.create({
+    baseURL: process.env.VUE_APP_URL,
+    params: {
+        key: process.env.VUE_APP_KEY,
+        aqi: 'no'
+    }
+});
 
 async function getDataForecast(city) {
     try{
-       const res = await axios.get('forecast.json', {
+       const res = await http.get('forecast.json', {
             params: {
-                key: key,
                 q: city,
                 days: 3,
-                aqi: 'no',
                 alerts: 'no'
             }
         }     
@@ -23,11 +26,9 @@ async function getDataForecast(city) {
 
 async function getCurrentWeather(city) {
     try{
-        const res = await axios.get('current.json', {
+        const res = await http.get('current.json', {
             params: {
-                key: key,
                 q: city,
-                aqi: 'no',
                 }
          }     
        )

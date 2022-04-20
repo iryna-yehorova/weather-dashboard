@@ -1,21 +1,26 @@
 import { reactive, watchEffect } from "vue"
 import { getDataForecast } from '../backend/dataApi'
 
+const SEARCH_LENGTH_LIMIT = 3
+
 export const useForecastApi = () => {
-    const state = reactive({
+    let state = reactive({
         search: '',
         loading: true,
         forecast: []
     })
 
     watchEffect ( async() => {
-        if (state.search.length <= 3) {
+        if (state.search.length <= SEARCH_LENGTH_LIMIT) {
             return 
         }
         
         const response = await getDataForecast(state.search);
-        state.forecast = response.forecastday;
-        state.loading = false;
+        state = {
+            ...state,
+            forecast: response.forecastday,
+            loading: false
+        }
     })
 
     return state

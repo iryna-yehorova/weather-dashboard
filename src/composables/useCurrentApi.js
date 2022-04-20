@@ -2,7 +2,7 @@ import { reactive, toRefs } from 'vue'
 import { getCurrentWeather } from '../backend/dataApi'
 
 export const useCurrentApi = (city) => {
-    const state = reactive({
+    let state = reactive({
         loading: true,
         temperature: '',
         humidity: '',
@@ -11,10 +11,13 @@ export const useCurrentApi = (city) => {
 
     async function getCurrent() {
         const response = await getCurrentWeather(city);
-        state.temperature = response.temp_c
-        state.humidity = response.humidity;
-        state.condition = response.condition;
-        state.loading = false;
+        state = {
+            ...state,
+            temperature: response.temp_c,
+            humidity: response.humidity,
+            condition: response.condition,
+            loading: false
+        }
     }
 
     getCurrent()
