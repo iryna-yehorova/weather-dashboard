@@ -28,12 +28,12 @@ export default {
             ]
         })
 
-        async function getInfo() {
-            state.list.forEach(item => {
-                    const res = getCurrentWeather(item.title);
-                    item.temperature = res.current.temp_c;
-                    item.humidity = res.current.humidity;
-                    item.condition = res.current.condition
+        function getInfo() {
+            state.list.forEach(async (item) => {
+                const res = await getCurrentWeather(item.title);
+                item.temperature = res.temp_c;
+                item.humidity = res.humidity;
+                item.condition = res.condition
             })
         }
             

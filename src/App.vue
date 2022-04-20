@@ -1,6 +1,7 @@
 <template>
   <div>
     <Navbar @onSearchChange='getSearch'/> 
+    <CityList />
    
   </div>
 </template>
@@ -9,11 +10,13 @@
 import * as dataApi from "./backend/dataApi"
 import { reactive, toRefs } from 'vue'
 import Navbar from './components/Navbar.vue'
+import CityList from './components/CityList.vue'
 
 export default {
   name: 'App',
   components: {
-    Navbar
+    Navbar,
+    CityList
   },
   setup() {
     const state = reactive({

@@ -9,10 +9,12 @@
 </template>
 
 <script>
-import {toRefs} from 'vue'
-export default ({
-    setup(props) {
-        return {...toRefs(props)}
+export default {
+    props: {
+        title: String,
+        temperature: Number,
+        humidity: Number,
+        condition: Object
     }
-})
+}
 </script>
