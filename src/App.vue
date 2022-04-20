@@ -1,38 +1,43 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
+  <div>
+    <Navbar @onSearchChange='getSearch'/> 
+    <div class="container">
+      <div class="row" >
+        <div class="col-3 bg-warning bg-opacity-25 pb-3">
+          <CityList />
+        </div>
+        <div class="col ps-0">
+          <Dashboard :forecast="forecast"/>
+        </div>
+      </div>
+    </div>
+   
+  </div>
 </template>
 
 <script>
+import { toRefs } from 'vue'
+import Navbar from './components/Navbar.vue'
+import CityList from './components/CityList.vue'
+import Dashboard from './components/Dashboard.vue'
+import { useForecastApi } from './composables/useForecastApi'
+
 export default {
   name: 'App',
-  components: {},
+  components: {
+    Navbar,
+    CityList,
+    Dashboard
+  },
   setup() {
-    const axios = require('axios').default;
+    const state = useForecastApi()
 
-    axios.get(process.env.VUE_APP_URL,   {
-      params: {
-        key: process.env.VUE_APP_KEY,
-        q: 'Kiev',
-        days: 3,
-        aqi: 'no',
-        alerts: 'no'
-      }
-    }     
-    )
-    .then((data) => console.log(data.data))
+    const getSearch = (location) => state.search = location
+
+    getSearch('Kiev')
+
+    return { ...toRefs(state), getSearch}
   },
 }
 </script>
 
-
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
