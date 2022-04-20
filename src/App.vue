@@ -18,7 +18,7 @@ import { toRefs } from 'vue'
 import Navbar from './components/Navbar.vue'
 import CityList from './components/CityList.vue'
 import Dashboard from './components/Dashboard.vue'
-import { useForecastApi } from './composables/getForecastApi'
+import { useForecastApi } from './composables/useForecastApi'
 
 export default {
   name: 'App',

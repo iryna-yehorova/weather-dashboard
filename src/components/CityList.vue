@@ -13,7 +13,7 @@
 <script>
 import { reactive, toRefs } from 'vue'
 import City from "./City.vue"
-import { useCurrentApi } from '../composables/getCurrentApi'
+import { useCurrentApi } from '../composables/useCurrentApi'
 
 export default {
     components: {
