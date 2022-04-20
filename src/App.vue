@@ -1,44 +1,36 @@
 <template>
   <div>
     <Navbar @onSearchChange='getSearch'/> 
-    <CityList />
+    <div class="row">
+      <div class="col-5">
+        <CityList />
+      </div>
+      <div class="col">
+        <Dashboard />
+      </div>
+    </div>
    
   </div>
 </template>
 
 <script>
-import * as dataApi from "./backend/dataApi"
-import { reactive, toRefs } from 'vue'
+import { toRefs } from 'vue'
 import Navbar from './components/Navbar.vue'
 import CityList from './components/CityList.vue'
+import Dashboard from './components/Dashboard.vue'
+import { useForecastApi } from './composables/getForecastApi'
 
 export default {
   name: 'App',
   components: {
     Navbar,
-    CityList
+    CityList,
+    Dashboard
   },
   setup() {
-    const state = reactive({
-      location: '',
-      current: {},
-      forecast: {}
-    })
+    const state = useForecastApi()
 
-    const getSearch = (location) => {
-      state.location = location
-      getData(location)
-    }
-
-    async function getData(location) {
-      if(location.length <= 3) {
-        return 
-      }
-
-      const res = await dataApi.getDataForecast(location)
-      state.current = res.current
-      state.forecast = res.forecast.forecastday
-    }
+    const getSearch = (location) => state.search = location
 
     return { ...toRefs(state), getSearch}
   },

@@ -1,8 +1,10 @@
 <template>
     <div class="card w-50">
         <div class="card-body">
-            <h5 class="card-title">{{title}}</h5>
-            <p class="card-text"> Temperature: {{temperature}}</p>
+            <h5 class="card-title">{{ title }}</h5>
+            <p class="card-text"> Temperature: {{ temperature }}</p>
+            <p class="card-text"> Humidity: {{ humidity }}</p>
+            <p class="card-text"> Condition: {{ condition.text }}</p>
             <a href="#" class="btn btn-primary">Check</a>
         </div>
     </div>
@@ -12,8 +14,8 @@
 export default {
     props: {
         title: String,
-        temperature: Number,
-        humidity: Number,
+        temperature: [Number, String],
+        humidity: [Number, String],
         condition: Object
     }
 }

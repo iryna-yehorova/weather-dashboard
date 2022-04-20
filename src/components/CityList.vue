@@ -11,9 +11,9 @@
 </template>
 
 <script>
-import City from "./City.vue"
 import { reactive, toRefs } from 'vue'
-import { getCurrentWeather } from '../backend/dataApi'
+import City from "./City.vue"
+import { useCurrentApi } from '../composables/getCurrentApi'
 
 export default {
     components: {
@@ -29,11 +29,12 @@ export default {
         })
 
         function getInfo() {
-            state.list.forEach(async (item) => {
-                const res = await getCurrentWeather(item.title);
-                item.temperature = res.temp_c;
-                item.humidity = res.humidity;
-                item.condition = res.condition
+            state.list.forEach((item) => {
+                let current = useCurrentApi(item.title)
+                let {temperature, humidity, condition} = current;
+                item.temperature = temperature;
+                item.humidity = humidity;
+                item.condition = condition
             })
         }
             
