@@ -3,7 +3,7 @@
     <Navbar @onSearchChange='getSearch'/> 
     <div class="container">
       <div class="row" >
-        <div class="col-3 bg-warning bg-opacity-25 pb-3">
+        <div class="col-3 pb-3">
           <CityList />
         </div>
         <div class="col ps-0">

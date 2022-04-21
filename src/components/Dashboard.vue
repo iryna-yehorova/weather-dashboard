@@ -3,12 +3,8 @@
         <div class="card-body">
             <div class="card-title">
                 <Overview :today="forecast[0]" :location="location" />
-            </div>
-            <div class="row">
-                <div class="col">
-                    Cards
-                </div>
-            </div>
+            </div>                    
+            <WeatherCards :weather="forecast[0]"/>
             <div class="row">
                 <div class="col"> 
                     Table
@@ -21,10 +17,12 @@
 <script>
 import { toRefs } from 'vue'
 import Overview from './Overview.vue'
+import WeatherCards from './WeatherCards.vue'
 
 export default {
     components: {
-        Overview
+        Overview,
+        WeatherCards
     },
     props: ['forecast', 'location'],
     setup(props) {
