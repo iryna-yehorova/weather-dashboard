@@ -2,13 +2,7 @@
     <div class="card">
         <div class="card-body">
             <div class="card-title">
-                <Overview :today="forecast[0]" :city="city"/>
-
-            </div>
-            <div class="row">
-                <div class="col">
-                    Short overview
-                </div>
+                <Overview :today="forecast[0]" :city="city" />
             </div>
             <div class="row">
                 <div class="col">

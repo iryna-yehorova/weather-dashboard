@@ -16,11 +16,11 @@
 </template>
 
 <script>
-import { toRefs } from 'vue'
+import { toRefs, watch, reactive } from 'vue'
 import Navbar from './components/Navbar.vue'
 import CityList from './components/CityList.vue'
 import Dashboard from './components/Dashboard.vue'
-import { useForecastApi } from './composables/useForecastApi'
+import { getDataForecast } from './backend/dataApi'
 
 export default {
   name: 'App',
@@ -30,9 +30,21 @@ export default {
     Dashboard
   },
   setup() {
-    const state = useForecastApi()
+    const state = reactive({
+        loading: true,
+        forecast: [],
+        search: ''
+    })
 
-    const getSearch = (location) => state.search = location
+    const getSearch = (location) => state.search = location 
+
+    watch( 
+      () => state.search, 
+      async() => {
+        const response = await getDataForecast(state.search);
+        state.forecast = response.forecastday,
+        state.loading = false
+    })
 
     if (!state.search) {
       getSearch('Kiev')

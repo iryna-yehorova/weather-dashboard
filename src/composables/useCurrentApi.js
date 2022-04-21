@@ -11,16 +11,13 @@ export const useCurrentApi = (city) => {
 
     async function getCurrent() {
         const response = await getCurrentWeather(city);
-        state = {
-            ...state,
-            temperature: response.temp_c,
-            humidity: response.humidity,
-            condition: response.condition,
-            loading: false
-        }
+        state.temperature = response.temp_c;
+        state.humidity = response.humidity;
+        state.condition = response.condition;
+        state.loading = false
     }
 
     getCurrent()
 
-    return {...toRefs(state)}
+    return { ...toRefs(state)}
 }
