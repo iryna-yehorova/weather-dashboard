@@ -32,9 +32,9 @@ export default {
       labels: state.labels,
       datasets: [
         {
-          data: state.tempData,
-          fill: false,
-          borderColor: "#fd7e14",
+            data: state.tempData,
+            borderColor: "#fd7e14",
+            tension: 0.5,
         },
       ],
     }));
@@ -45,7 +45,7 @@ export default {
             legend: {
                 display: false,
             },
-        }
+        },
     }));
 
     const { lineChartProps } = useLineChart({
