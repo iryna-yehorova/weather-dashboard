@@ -18,7 +18,7 @@ async function getDataForecast(city) {
             }
         }     
       )
-      return res.data.forecast
+      return res.data
     } catch(err) {
         console.log(err)
     }

@@ -15,7 +15,7 @@ export const useForecastApi = () => {
         async() => {
         
             const response = await getDataForecast(state.search);
-            state.forecast = response.forecastday,
+            state.forecast = response.forecast.forecastday,
             state.loading = false
     })
 

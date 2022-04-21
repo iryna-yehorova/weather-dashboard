@@ -2,7 +2,7 @@
     <div class="card">
         <div class="card-body">
             <div class="card-title">
-                <Overview :today="forecast[0]" :city="city" />
+                <Overview :today="forecast[0]" :location="location" />
             </div>
             <div class="row">
                 <div class="col">
@@ -26,7 +26,7 @@ export default {
     components: {
         Overview
     },
-    props: ['forecast', 'city'],
+    props: ['forecast', 'location'],
     setup(props) {
         let [today, tomorrow, next] = toRefs(props.forecast)
         console.log(today, tomorrow, next)

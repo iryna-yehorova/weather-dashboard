@@ -7,7 +7,7 @@
           <CityList />
         </div>
         <div class="col ps-0">
-          <Dashboard :forecast="forecast" :city="search"/>
+          <Dashboard :forecast="forecast" :location="location" />
         </div>
       </div>
     </div>
@@ -33,6 +33,7 @@ export default {
     const state = reactive({
         loading: true,
         forecast: [],
+        location: {},
         search: ''
     })
 
@@ -42,7 +43,12 @@ export default {
       () => state.search, 
       async() => {
         const response = await getDataForecast(state.search);
-        state.forecast = response.forecastday,
+        state.forecast = response.forecast.forecastday,
+        state.location = {
+          country: response.location.country,
+          region: response.location.region,
+          name: response.location.name
+        },
         state.loading = false
     })
 
