@@ -1,8 +1,8 @@
 <template>
     <div class="row">
-        <v-col class="col-12 col-md-4" v-for="(item, index) in current" :key="index">
+        <div class="col-12 col-md-4" v-for="(item, index) in current" :key="index">
             <WeatherCard :item="item"/>
-        </v-col>
+        </div>
     </div>
 </template>
 
