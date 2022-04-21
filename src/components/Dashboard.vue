@@ -5,9 +5,9 @@
                 <Overview :today="forecast[0]" :location="location" />
             </div>                    
             <WeatherCards :weather="forecast[0]"/>
-            <div class="row">
+            <div class="row my-4">
                 <div class="col"> 
-                    Table
+                    <TemperatureChart :weather="forecast[0]"/>
                 </div>
             </div>
         </div>
@@ -18,11 +18,13 @@
 import { toRefs } from 'vue'
 import Overview from './Overview.vue'
 import WeatherCards from './WeatherCards.vue'
+import TemperatureChart from "./TemteratureChart.vue"
 
 export default {
     components: {
         Overview,
-        WeatherCards
+        WeatherCards,
+        TemperatureChart
     },
     props: ['forecast', 'location'],
     setup(props) {
