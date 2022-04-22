@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { reactive, watch, toRefs } from 'vue'
+import { reactive, watchEffect, toRefs } from 'vue'
 
 export default {
     props: {
@@ -28,7 +28,7 @@ export default {
             icon: ''
         })
 
-        watch(() => {
+        watchEffect(() => {
             state.title = props.item.title
             state.temperature = props.item.weather.avgtemp_c
             state.humidity = props.item.weather.avghumidity

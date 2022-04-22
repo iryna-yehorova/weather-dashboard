@@ -36,7 +36,8 @@ export default {
         loading: true,
         forecast: [],
         location: {},
-        search: ''
+        search: '',
+        geolocation: ''
     })
 
     const getSearch = (location) => state.search = location 
@@ -55,7 +56,16 @@ export default {
     })
 
     if (!state.search) {
-      getSearch('Kiev')
+      navigator.geolocation.getCurrentPosition(
+        position => {
+          state.geolocation = `${position.coords.latitude},${position.coords.longitude}`
+          getSearch(state.geolocation)
+        },
+        error => {
+          console.log(error)
+          getSearch('Kiev')
+        }
+      );
     }
 
     return { ...toRefs(state), getSearch}
