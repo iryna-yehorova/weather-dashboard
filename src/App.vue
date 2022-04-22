@@ -1,7 +1,9 @@
 <template>
   <div>
-    <Navbar @onSearchChange='getSearch'/> 
-    <div class="container">
+    <div class="container-fluid">
+      <div class="row bg-warning">
+        <Navbar @onSearchChange='getSearch'/> 
+      </div>
       <div class="row" >
         <div class="col-3 pb-3">
           <CityList />
@@ -39,7 +41,7 @@ export default {
 
     const getSearch = (location) => state.search = location 
 
-    watch( 
+    watch ( 
       () => state.search, 
       async() => {
         const response = await getDataForecast(state.search);

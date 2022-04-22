@@ -27,7 +27,7 @@ export default {
         humidity: [Number, String],
         condition: Object
     },
-    setup(props) {
+    setup (props) {
         const icon = ref('')
 
         watch(props, () => {
