@@ -11,11 +11,8 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col">
-                    <TomorrowCard title="Tomorrow" :weather="forecast[1]"/>
-                </div>
-                <div class="col">
-                    <TomorrowCard :title="nextDay" :weather="forecast[2]"/>
+                <div class="col" v-for="(item, index) in nextForecast" :key="index">
+                    <TomorrowCard :item="item" />
                 </div>
             </div>
         </div>
@@ -41,12 +38,21 @@ export default {
     props: ['forecast', 'location'],
     setup(props) {
         const state = reactive({
-            nextDay: ''
+            nextForecast: []
         })
 
-        watch(props, () => {
-            const next =  moment(props.forecast[2].date).isoWeekday()
-            state.nextDay = daysOfWeek[next]
+        watch(props, async () => {
+            const [, second, third] = props.forecast;
+            const next =  moment(third.date).isoWeekday()
+            state.nextForecast.push({
+                title: daysOfWeek[next - 1],
+                weather: second.day
+
+            })
+            state.nextForecast.push({
+                title: daysOfWeek[next],
+                weather: third.day
+            })
         })
 
         return { ...toRefs(state)}
