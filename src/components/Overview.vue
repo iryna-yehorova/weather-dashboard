@@ -1,7 +1,7 @@
 <template>
     <div class="row">
         <div class="col">
-            <h1 class="fs-bold">{{ location.name }}</h1>
+            <h1 class="fw-bold">{{ location.name }}</h1>
             <p>{{ location.region }}, {{ location.country }} </p>
         </div>
         <div class="col d-flex flex-column align-items-end">

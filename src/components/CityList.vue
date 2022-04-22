@@ -24,7 +24,10 @@ export default {
             list: [
                 { title: 'Paris', temperature: '', humidity: '', condition: {} },
                 { title: 'Kiev', temperature: '', humidity: '', condition: {} },
-                { title: 'Berlin', temperature: '', humidity: '', condition: {} }
+                { title: 'Berlin', temperature: '', humidity: '', condition: {} },
+                { title: 'Stambul', temperature: '', humidity: '', condition: {} },
+                { title: 'Tokio', temperature: '', humidity: '', condition: {} },
+                { title: 'New York', temperature: '', humidity: '', condition: {} }
             ]
         })
 
