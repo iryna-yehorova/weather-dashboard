@@ -1,5 +1,5 @@
 <template>
-    <div class="card mt-3 border-warning">
+    <div class="card mt-3">
         <div class="card-body">
             <div class="pb-3 d-flex align-items-center justify-content-between">
                 <h5 class="fw-bold fs-3 text-warning">{{ title }}</h5>
@@ -14,23 +14,29 @@
 </template>
 
 <script>
-import { watch, ref } from 'vue'
+import { reactive, watchEffect, toRefs } from 'vue'
 
 export default {
     props: {
-        title: String,
-        temperature: [Number, String],
-        humidity: [Number, String],
-        condition: Object
+        item: Object
     },
-    setup (props) {
-        const icon = ref('')
-
-        watch(props, () => {
-            icon.value = 'https:' + props.condition.icon
+    setup(props) {
+        const state = reactive({
+            title: '',
+            temperature: '',
+            humidity: '',
+            icon: ''
         })
 
-        return { icon }
+        watchEffect(() => {
+            state.title = props.item.title
+            state.temperature = props.item.weather.avgtemp_c
+            state.humidity = props.item.weather.avghumidity
+            state.icon = 'https:' + props.item.weather.condition.icon
+        })
+
+
+        return { ...toRefs(state) }
     }
 }
 </script>
