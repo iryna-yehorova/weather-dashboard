@@ -13,18 +13,31 @@
     </div>
 </template>
 
-<script>
-import { watch, ref } from 'vue'
+<script lang="ts">
+import { defineComponent, PropType, watch, ref } from 'vue'
+import WeatherCondition from '../types/WeatherCondition'
 
-export default {
+export default defineComponent({
     props: {
-        title: String,
-        temperature: [Number, String],
-        humidity: [Number, String],
-        condition: Object
+        title: {
+            type: String,
+            required: true
+        },
+        temperature: {
+            type: [Number, String],
+            required: true
+        },
+        humidity: {
+            type: [Number, String],
+            required: true
+        },
+        condition: {
+            type: Object as PropType<WeatherCondition>,
+            required: true
+        }
     },
     setup (props) {
-        const icon = ref('')
+        const icon = ref<string>('')
 
         watch(props, () => {
             icon.value = 'https:' + props.condition.icon
@@ -32,5 +45,5 @@ export default {
 
         return { icon }
     }
-}
+})
 </script>

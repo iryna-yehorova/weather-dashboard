@@ -2,7 +2,7 @@
      <LineChart v-bind="lineChartProps" />
 </template>
 
-<script>
+<script lang="ts">
 import { computed, reactive, watch } from 'vue'
 import { LineChart, useLineChart } from "vue-chart-3";
 import { Chart, registerables } from "chart.js";
