@@ -1,5 +1,5 @@
 <template>
-    <div class="card m-2 text-center">
+    <div class="card m-2 text-center" v-if="item">
         <div class="card-title">
             <h5 class="card-title mt-2 text-warning">{{ item.title }}</h5>
         </div>
@@ -10,9 +10,12 @@
 </template>
 
 <script lang="ts">
-export default {
+import { defineComponent, PropType } from "vue"
+import SimpleCard from '@/types/SimpleCard'
+
+export default defineComponent ({
     props: {
-        item: Object
+        item: Object as PropType<SimpleCard>
     }
-}
+})
 </script>

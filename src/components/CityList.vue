@@ -14,14 +14,14 @@
 import { defineComponent, reactive, toRefs } from 'vue'
 import City from "./City.vue"
 import { useCurrentApi } from '../composables/useCurrentApi'
-import CityList from '@/types/CityList'
+import CityListItem from '@/types/CityListItem'
 
 export default defineComponent({
     components: {
         City
     },
     setup() {
-        const state = reactive<{ list: CityList[] }>({
+        const state = reactive<{ list: CityListItem[] }>({
             list: [
                 { title: 'Paris', temperature: '', humidity: '', condition: { icon: '', text: '', code: 0 } },
                 { title: 'Kiev', temperature: '', humidity: '', condition: { icon: '', text: '', code: 0 } },
@@ -33,7 +33,7 @@ export default defineComponent({
         })
 
         function getInfo() {
-            state.list.forEach((item: CityList ) => {
+            state.list.forEach((item: CityListItem ) => {
                 if(item.title) {
                     let current = useCurrentApi(item.title)
                     item.temperature = current.state.temperature;

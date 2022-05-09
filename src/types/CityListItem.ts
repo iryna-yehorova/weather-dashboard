@@ -1,10 +1,10 @@
 import WeatherCondition from './WeatherCondition'
 
-interface CityList {
+interface CityListItem{
     title?: string,
     temperature: string,
     humidity: string,
     condition: WeatherCondition
 }
 
-export default CityList
+export default CityListItem
