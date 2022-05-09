@@ -14,7 +14,7 @@
   </nav> 
 </template>
 
-<script>
+<script lang="ts">
 export default {
     setup (_, { emit }) {
         const customChange = (event) => {

@@ -13,7 +13,7 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
 import { reactive, watchEffect, toRefs } from 'vue'
 
 export default {

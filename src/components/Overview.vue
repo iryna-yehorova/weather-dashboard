@@ -11,7 +11,7 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
 import { watch, reactive, toRefs } from 'vue'
 import moment from 'moment'
 

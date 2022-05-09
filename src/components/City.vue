@@ -33,14 +33,17 @@ export default defineComponent({
         },
         condition: {
             type: Object as PropType<WeatherCondition>,
-            required: true
+            required: true,
+            default: () => {}
         }
     },
     setup (props) {
         const icon = ref<string>('')
 
         watch(props, () => {
-            icon.value = 'https:' + props.condition.icon
+            if(props.condition) {
+                icon.value = 'https:' + props.condition.icon
+            }
         })
 
         return { icon }

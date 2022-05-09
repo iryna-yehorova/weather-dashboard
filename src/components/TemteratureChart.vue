@@ -3,16 +3,17 @@
 </template>
 
 <script lang="ts">
-import { computed, reactive, watch } from 'vue'
+import { defineComponent, computed, reactive, watch, PropType } from 'vue'
 import { LineChart, useLineChart } from "vue-chart-3";
 import { Chart, registerables } from "chart.js";
-import moment from 'moment'
+import moment from 'moment';
+import Hour from '@/types/Hour';
 Chart.register(...registerables);
 
-export default {
+export default defineComponent({
   components: { LineChart },
   props: {
-      weather: Object
+      weather: PropType<Hour[]>
   },
   setup(props) {
     const state = reactive({
@@ -20,8 +21,8 @@ export default {
         labels: []
     })
 
-    watch(props, () => {
-        props.weather.hour.forEach(item => state.tempData.push(item.temp_c));
+    watch(props.weather, () => {
+        props.weather.hour.forEach( (item: object) => state.tempData.push(item.temp_c));
         props.weather.hour.forEach(i => {
             let date = moment.unix(i.time_epoch).format("HH:mm")
             state.labels.push(date)
@@ -60,5 +61,5 @@ export default {
       state
     };
   },
-};
+});
 </script>

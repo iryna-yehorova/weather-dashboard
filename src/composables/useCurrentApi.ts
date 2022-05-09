@@ -1,7 +1,7 @@
 import { reactive, toRefs } from 'vue'
 import { getCurrentWeather } from '../backend/dataApi'
 
-export const useCurrentApi = (city: String) => {
+export const useCurrentApi = (city: string) => {
     const state = reactive({
         loading: true,
         temperature: '',

@@ -8,7 +8,7 @@ const http = axios.create({
     }
 });
 
-async function getDataForecast(city : String) {
+async function getDataForecast(city: string) {
     try{
        const res = await http.get('forecast.json', {
             params: {
@@ -24,7 +24,7 @@ async function getDataForecast(city : String) {
     }
 }
 
-async function getCurrentWeather(city : String) {
+async function getCurrentWeather(city: string) {
     try{
         const res = await http.get('current.json', {
             params: {

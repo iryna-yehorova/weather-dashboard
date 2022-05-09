@@ -19,16 +19,23 @@
     </div>
 </template>
 
-<script>
-import { reactive, watch, toRefs } from 'vue'
+<script lang="ts">
+import { defineComponent, reactive, watch, toRefs } from 'vue'
 import Overview from './Overview.vue'
 import WeatherCards from './WeatherCards.vue'
 import TemperatureChart from "./TemteratureChart.vue"
 import TomorrowCard from './TomorrowCard.vue'
 import moment from 'moment'
 import daysOfWeek from '../helpers/dayOfWeek'
+import ForecastDay  from '@/types/ForecastDay'
+import Location from '@/types/Location'
 
-export default {
+interface DashboardProps {
+    forecast: ForecastDay[],
+    location : Location
+}
+
+export default defineComponent({
     components: {
         Overview,
         WeatherCards,
@@ -36,7 +43,7 @@ export default {
         TomorrowCard
     },
     props: ['forecast', 'location'],
-    setup(props) {
+    setup(props: DashboardProps) {
         const state = reactive({
             nextForecast: []
         })
@@ -57,6 +64,6 @@ export default {
 
         return { ...toRefs(state)}
     }
-}
+})
 </script>
 

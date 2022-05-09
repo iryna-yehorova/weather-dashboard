@@ -6,7 +6,7 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
 import { reactive, watch, toRefs } from 'vue'
 import WeatherCard from './WeatherCard.vue'
 

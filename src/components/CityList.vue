@@ -10,12 +10,12 @@
     </div>
 </template>
 
-<script>
-import { reactive, toRefs } from 'vue'
+<script lang="ts">
+import { defineComponent, reactive, toRefs } from 'vue'
 import City from "./City.vue"
 import { useCurrentApi } from '../composables/useCurrentApi'
 
-export default {
+export default defineComponent({
     components: {
         City
     },
@@ -45,5 +45,5 @@ export default {
         
         return { ...toRefs(state), getInfo}
     }
-}
+})
 </script>

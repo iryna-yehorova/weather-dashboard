@@ -29,7 +29,7 @@ export default defineComponent({
   components: {
     Navbar,
     CityList,
-    Dashboard
+    Dashboard,
   },
   setup() {
     const state = reactive({
