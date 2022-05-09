@@ -21,7 +21,6 @@ export default defineComponent({
     props: {
         title: {
             type: String,
-            required: true
         },
         temperature: {
             type: [Number, String],

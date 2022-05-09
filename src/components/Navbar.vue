@@ -14,14 +14,14 @@
   </nav> 
 </template>
 
-<script lang="ts">
-export default {
+<script lang="ts"> 
+import { defineComponent } from 'vue'
+export default defineComponent ({
     setup (_, { emit }) {
-        const customChange = (event) => {
-          emit("onSearchChange", event.target.value)
-        }
-
-        return { customChange }
+      const customChange = (event: Event) => {
+        emit("onSearchChange", (event.target as HTMLInputElement).value)
+      }
+      return { customChange }
     }
-}
+})
 </script>

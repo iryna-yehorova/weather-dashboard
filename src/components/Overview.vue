@@ -1,6 +1,6 @@
 <template>
     <div class="row">
-        <div class="col">
+        <div class="col" v-if="location">
             <h1 class="fw-bold">{{ location.name }}</h1>
             <p>{{ location.region }}, {{ location.country }} </p>
         </div>
@@ -12,28 +12,32 @@
 </template>
 
 <script lang="ts">
-import { watch, reactive, toRefs } from 'vue'
+import { defineComponent, PropType, watch, reactive, toRefs } from 'vue'
 import moment from 'moment'
+import Location from '@/types/Location'
+import ForecastDay  from '@/types/ForecastDay'
 
-export default {
+export default defineComponent({
     props: {
-        today: Object,
-        location: Object
+        today: Object as PropType<ForecastDay>,
+        location: Object as PropType<Location>
     },
    setup(props) {
-        const state = reactive({
+        const state = reactive<{ day: string, imageCondition: string }>({
            day: '',
            imageCondition: ''
         })
 
         watch (props, () => {
-            state.day = moment.unix(props.today.date_epoch).format("MM/DD/YYYY");
-            state.imageCondition = 'https:' + props.today.day.condition.icon
+            if(props.today) {
+                state.day = moment.unix(props.today.date_epoch).format("MM/DD/YYYY");
+                state.imageCondition = 'https:' + props.today.day.condition.icon
+            }
         })
 
         return {
             ...toRefs(state)
         }
    }
-}
+})
 </script>

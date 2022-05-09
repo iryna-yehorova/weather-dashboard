@@ -14,14 +14,7 @@
 import { defineComponent, reactive, toRefs } from 'vue'
 import City from "./City.vue"
 import { useCurrentApi } from '../composables/useCurrentApi'
-import WeatherCondition from '@/types/WeatherCondition'
-
-interface CityList {
-    title?: string,
-    temperature: string,
-    humidity: string,
-    condition: WeatherCondition
-}
+import CityList from '@/types/CityList'
 
 export default defineComponent({
     components: {
