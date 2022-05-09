@@ -2,10 +2,7 @@
     <div>
         <City v-for="(item, index) in list"
             :key="index"
-            :title="item.title"
-            :temperature="item.temperature"
-            :humidity="item.humidity" 
-            :condition="item.condition"
+            :item="item"
         />
     </div>
 </template>
@@ -13,8 +10,8 @@
 <script lang="ts">
 import { defineComponent, reactive, toRefs } from 'vue'
 import City from "./City.vue"
-import { useCurrentApi } from '../composables/useCurrentApi'
 import CityListItem from '@/types/CityListItem'
+import * as dataApi from '@/backend/dataApi'
 
 export default defineComponent({
     components: {
@@ -33,12 +30,12 @@ export default defineComponent({
         })
 
         function getInfo() {
-            state.list.forEach((item: CityListItem ) => {
+            state.list.forEach( async(item: CityListItem ) => {
                 if(item.title) {
-                    let current = useCurrentApi(item.title)
-                    item.temperature = current.state.temperature;
-                    item.humidity = current.state.humidity;
-                    item.condition = current.state.condition
+                    let current = await dataApi.getCurrentWeather(item.title)
+                    item.temperature = current.temp_c;
+                    item.humidity = current.humidity;
+                    item.condition = current.condition
                 }
             })
         }

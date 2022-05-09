@@ -1,7 +1,7 @@
 import WeatherCondition from './WeatherCondition'
 
 interface CityListItem{
-    title?: string,
+    title: string,
     temperature: string,
     humidity: string,
     condition: WeatherCondition
