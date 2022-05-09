@@ -1,12 +1,12 @@
-import { reactive, toRefs } from 'vue'
+import { reactive } from 'vue'
 import { getCurrentWeather } from '../backend/dataApi'
+import WeatherCondition from '@/types/WeatherCondition'
 
 export const useCurrentApi = (city: string) => {
-    const state = reactive({
-        loading: true,
+    const state = reactive<{ temperature: string, humidity: string, condition: WeatherCondition }>({
         temperature: '',
         humidity: '',
-        condition: {}
+        condition: { icon: '', text: '', code: 0 }
     })
 
     async function getCurrent() {
@@ -14,10 +14,9 @@ export const useCurrentApi = (city: string) => {
         state.temperature = response.temp_c;
         state.humidity = response.humidity;
         state.condition = response.condition;
-        state.loading = false
     }
 
     getCurrent()
 
-    return { ...toRefs(state)}
+    return { state }
 }
