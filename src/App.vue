@@ -17,19 +17,19 @@
   </div>
 </template>
 
-<script>
-import { toRefs, watch, reactive } from 'vue'
+<script lang="ts">
+import { defineComponent, toRefs, watch, reactive } from 'vue'
 import Navbar from './components/Navbar.vue'
 import CityList from './components/CityList.vue'
 import Dashboard from './components/Dashboard.vue'
 import { getDataForecast } from './backend/dataApi'
 
-export default {
+export default defineComponent({
   name: 'App',
   components: {
     Navbar,
     CityList,
-    Dashboard
+    Dashboard,
   },
   setup() {
     const state = reactive({
@@ -40,7 +40,7 @@ export default {
         geolocation: ''
     })
 
-    const getSearch = (location) => state.search = location 
+    const getSearch = (location: string) => state.search = location 
 
     watch ( 
       () => state.search, 
@@ -69,7 +69,6 @@ export default {
     }
 
     return { ...toRefs(state), getSearch}
-  },
-}
+  }
+});
 </script>
-

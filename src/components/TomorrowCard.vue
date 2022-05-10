@@ -13,15 +13,16 @@
     </div>
 </template>
 
-<script>
-import { reactive, watchEffect, toRefs } from 'vue'
+<script lang="ts">
+import { defineComponent, PropType, reactive, watchEffect, toRefs } from 'vue'
+import TomorrowDay from '@/types/TomorrowDay'
 
-export default {
+export default defineComponent({
     props: {
-        item: Object
+        item: Object as PropType<TomorrowDay>
     },
     setup(props) {
-        const state = reactive({
+        const state = reactive<{ title: string, temperature: string | number, humidity: string | number, icon: string }>({
             title: '',
             temperature: '',
             humidity: '',
@@ -29,14 +30,16 @@ export default {
         })
 
         watchEffect(() => {
-            state.title = props.item.title
-            state.temperature = props.item.weather.avgtemp_c
-            state.humidity = props.item.weather.avghumidity
-            state.icon = 'https:' + props.item.weather.condition.icon
+            if(props.item) {
+                state.title = props.item.title
+                state.temperature = props.item.weather.avgtemp_c
+                state.humidity = props.item.weather.avghumidity
+                state.icon = 'https:' + props.item.weather.condition.icon
+            }
         })
 
 
         return { ...toRefs(state) }
     }
-}
+})
 </script>

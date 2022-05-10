@@ -1,6 +1,6 @@
 <template>
     <div class="card">
-        <div class="card-body">
+        <div class="card-body" v-if="forecast">
             <div class="card-title">
                 <Overview :today="forecast[0]" :location="location" />
             </div>                    
@@ -19,44 +19,62 @@
     </div>
 </template>
 
-<script>
-import { reactive, watch, toRefs } from 'vue'
+<script lang="ts">
+import { defineComponent, PropType, reactive, watch, toRefs } from 'vue'
 import Overview from './Overview.vue'
 import WeatherCards from './WeatherCards.vue'
 import TemperatureChart from "./TemteratureChart.vue"
 import TomorrowCard from './TomorrowCard.vue'
 import moment from 'moment'
-import daysOfWeek from '../helpers/dayOfWeek'
+import ForecastDay  from '@/types/ForecastDay'
+import Location from '@/types/Location'
+import NextDay from '@/types/NextDay'
 
-export default {
+export default defineComponent({
     components: {
         Overview,
         WeatherCards,
         TemperatureChart,
         TomorrowCard
     },
-    props: ['forecast', 'location'],
+    props: {
+        forecast: Array as PropType<ForecastDay[]>,
+        location: Object as PropType<Location>
+    },
     setup(props) {
-        const state = reactive({
+        const state = reactive<{ nextForecast: NextDay[]}>({
             nextForecast: []
         })
 
         watch(props, async () => {
-            const [, second, third] = props.forecast;
-            const next =  moment(third.date).isoWeekday()
-            state.nextForecast.push({
-                title: daysOfWeek[next - 1],
-                weather: second.day
+            if(props.forecast) {
+                const next =  moment(props.forecast[2].date).isoWeekday()
 
-            })
-            state.nextForecast.push({
-                title: daysOfWeek[next],
-                weather: third.day
-            })
+                state.nextForecast.push({
+                    title: getDayTitle(next - 1),
+                    weather: props.forecast[1].day
+                })
+                state.nextForecast.push({
+                    title: getDayTitle(next),
+                    weather: props.forecast[2].day
+                })
+            }
         })
+
+        function getDayTitle(val: number) {
+            switch(val) {
+                case 1: return 'Monday';
+                case 2: return 'Tuesday';
+                case 3: return 'Wednesday';
+                case 4: return 'Thursday';
+                case 5: return 'Friday';
+                case 6: return 'Saturday';
+                default: return 'Sunday';
+            } 
+        }
 
         return { ...toRefs(state)}
     }
-}
+})
 </script>
 

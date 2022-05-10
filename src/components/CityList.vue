@@ -2,42 +2,41 @@
     <div>
         <City v-for="(item, index) in list"
             :key="index"
-            :title="item.title"
-            :temperature="item.temperature"
-            :humidity="item.humidity" 
-            :condition="item.condition"
+            :item="item"
         />
     </div>
 </template>
 
-<script>
-import { reactive, toRefs } from 'vue'
+<script lang="ts">
+import { defineComponent, reactive, toRefs } from 'vue'
 import City from "./City.vue"
-import { useCurrentApi } from '../composables/useCurrentApi'
+import CityListItem from '@/types/CityListItem'
+import * as dataApi from '@/backend/dataApi'
 
-export default {
+export default defineComponent({
     components: {
         City
     },
     setup() {
-        const state = reactive({
+        const state = reactive<{ list: CityListItem[] }>({
             list: [
-                { title: 'Paris', temperature: '', humidity: '', condition: {} },
-                { title: 'Kiev', temperature: '', humidity: '', condition: {} },
-                { title: 'Berlin', temperature: '', humidity: '', condition: {} },
-                { title: 'Stambul', temperature: '', humidity: '', condition: {} },
-                { title: 'Tokio', temperature: '', humidity: '', condition: {} },
-                { title: 'New York', temperature: '', humidity: '', condition: {} }
+                { title: 'Paris', temperature: '', humidity: '', condition: { icon: '', text: '', code: 0 } },
+                { title: 'Kiev', temperature: '', humidity: '', condition: { icon: '', text: '', code: 0 } },
+                { title: 'Berlin', temperature: '', humidity: '', condition: { icon: '', text: '', code: 0 } },
+                { title: 'Stambul', temperature: '', humidity: '', condition: { icon: '', text: '', code: 0 } },
+                { title: 'Tokio', temperature: '', humidity: '', condition: { icon: '', text: '', code: 0 } },
+                { title: 'New York', temperature: '', humidity: '', condition: { icon: '', text: '', code: 0 } }
             ]
         })
 
         function getInfo() {
-            state.list.forEach((item) => {
-                let current = useCurrentApi(item.title)
-                let { temperature, humidity, condition } = current;
-                item.temperature = temperature;
-                item.humidity = humidity;
-                item.condition = condition
+            state.list.forEach( async(item: CityListItem ) => {
+                if(item.title) {
+                    let current = await dataApi.getCurrentWeather(item.title)
+                    item.temperature = current.temp_c;
+                    item.humidity = current.humidity;
+                    item.condition = current.condition
+                }
             })
         }
             
@@ -45,5 +44,5 @@ export default {
         
         return { ...toRefs(state), getInfo}
     }
-}
+})
 </script>
